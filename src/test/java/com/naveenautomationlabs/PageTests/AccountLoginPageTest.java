@@ -35,38 +35,9 @@ public class AccountLoginPageTest extends TestBase {
 	public void validateLoginWithValidCredentials() {
 		MyAccountPage myAccountPage = loginPage.loginToMyAccount("jismaria123@gmail.com", "Password@1234");
 		String getMyAccountText = myAccountPage.getMyAccountText();
-		Assert.assertEquals("My Account", getMyAccountText, "Not matching with My Account text");
-
-//		NewsletterSubscriptionPage newsletterSubscriptionPage= myAccountPage.newsLetter();
-//		newsletterSubscriptionPage.newsLetterSubscription();
-//		String newsLetterAlertBannerText = newsletterSubscriptionPage.getNewsLetterAlertBanner();
-//		Assert.assertEquals("Success: Your newsletter subscription has been successfully updated!", newsLetterAlertBannerText, "Not matching news letter yes alert banner message");
-//		
-//		AddressBookPage addressBookPage = myAccountPage.clickOnAddressBook();
-//		addressBookPage.formElementsOnAddressBook();
-//		String addressBookAlertSuccessBannerText = addressBookPage.addressBookSuccessAlertBanner();
-//		Assert.assertEquals("Your address has been successfully added", addressBookAlertSuccessBannerText,"Not matching text on address book page");
-
-		// ChangePasswordPage changePasswordPage = myAccountPage.clickOnPassword();
-		// changePasswordPage.changePassword();
-		// String changePasswordAlertText = myAccountPage.getChangePasswordAlert();
-		// Assert.assertEquals("Success: Your password has been successfully
-		// updated.",changePasswordAlertText ,"Not matching text");
-
-//		MyAccountInformationPage editAccountPage =  myAccountPage.clickOnEditAccount();
-//		editAccountPage.MyAccountInformation();
-//		String editAccountAlertText =  myAccountPage.getEditAccountSuccessAlert();
-//		Assert.assertEquals("Success: Your account has been successfully updated.",editAccountAlertText ,"Not matching text");
-//		
-//		YourAffliateInformationPage yourAffliateInformationPage = myAccountPage.clickOnAffliateAccount();
-//		yourAffliateInformationPage.affliateAccount();
-//		String affliateAccountAlertText =  myAccountPage.getaffliateAccountSuccessAlert();
-//		Assert.assertEquals("Success: Your account has been successfully updated.",affliateAccountAlertText ,"Not matching text");
-//		
-
+		Assert.assertEquals("My Account", getMyAccountText, "Not matching with My Account text");	
 		myAccountPage.logout();
 
-		// Assert.assertEquals("My Account",driver.getTitle());
 	}
 
 	@Test
@@ -80,16 +51,6 @@ public class AccountLoginPageTest extends TestBase {
 	public void validateForgotYourPasswordFunctionality() {
 		pwdPage = loginPage.clickForgotPassword();
 		loginPage = pwdPage.submitForgetPwdRequest("jismaria123@gmail.com");
-
-		// lazy loading concept - when we required the element it will bring right at
-		// that moment
-
-		// pwdPage = new ForgotYourPasswordPage();
-		// pwdPage.submitForgetPwdRequest("centanvin68@gmail.com");
-
-		// pwdPage.inputEmail("jismaria123@gmail.com");
-		// pwdPage.clickContinueButton();
-
 		String alertSuccessBannerText = loginPage.getTextFromAlertSuccessBanner().trim();
 		Assert.assertEquals("An email with a confirmation link has been sent your email address.",
 				alertSuccessBannerText);
