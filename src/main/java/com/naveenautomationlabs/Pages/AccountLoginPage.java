@@ -7,27 +7,28 @@ import com.naveenautomationlabs.Testbase.TestBase;
 
 public class AccountLoginPage extends TestBase {
 
-	public AccountLoginPage() {
-		PageFactory.initElements(driver, this);
-	}
+    public AccountLoginPage() {
+        PageFactory.initElements(driver, this);
+    }
 
-	@FindBy(id = "input-email")
-	WebElement emailField;
+    @FindBy(id = "input-email")
+    WebElement emailField;
 
-	@FindBy(id = "input-password")
-	WebElement passwordField;
+    @FindBy(id = "input-password")
+    WebElement passwordField;
 
-	@FindBy(xpath = "//input[@type='submit']")
-	WebElement loginButton;
+    @FindBy(xpath = "//input[@type='submit']")
+    WebElement loginButton;
 
-	@FindBy(css = "#account-login div.alert")
-	WebElement alertBanner;
+    @FindBy(css = "#account-login div.alert")
+    WebElement alertBanner;
 
-	@FindBy(css = "div.alert.alert-success")
-	WebElement alertSuccessBanner;
+    @FindBy(css = "div.alert.alert-success")
+    WebElement alertSuccessBanner;
 
-	@FindBy(xpath = "//a[text()='Forgotten Password']")
-	WebElement forgottenPassswordLink;
+    @FindBy(xpath = "//a[text()='Forgotten Password']")
+    WebElement forgottenPasswordLink;
+
 
 	private void enterEmail(String email) {
 		emailField.sendKeys(email);
@@ -41,24 +42,24 @@ public class AccountLoginPage extends TestBase {
 		loginButton.submit();
 	}
 
-	public String getTextFromAlertBanner() {
-		return alertBanner.getText();
-	}
 
-	public String getTextFromAlertSuccessBanner() {
-		return alertSuccessBanner.getText();
-	}
+    public String getTextFromAlertBanner() {
+        return waitForElementToBeVisible(alertBanner, 10).getText();
+    }
 
-	public ForgotYourPasswordPage clickForgotPassword() {
-		forgottenPassswordLink.click();
-		return new ForgotYourPasswordPage();
-	}
+    public String getTextFromAlertSuccessBanner() {
+        return waitForElementToBeVisible(alertSuccessBanner, 10).getText();
+    }
 
-	public MyAccountPage loginToMyAccount(String email, String pwd) {
-		enterEmail(email);
-		enterPassword(pwd);
-		clickLoginButton();
-		return new MyAccountPage();
-	}
+    public ForgotYourPasswordPage clickForgotPassword() {
+        clickElement(forgottenPasswordLink, 10);
+        return new ForgotYourPasswordPage();
+    }
 
+    public MyAccountPage loginToMyAccount(String email, String pwd) {
+        enterEmail(email);
+        enterPassword(pwd);
+        clickLoginButton();
+        return new MyAccountPage();
+    }
 }

@@ -1,41 +1,46 @@
 package com.naveenautomationlabs.Pages;
 
+import java.time.Duration;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import com.naveenautomationlabs.Testbase.TestBase;
 
 public class ForgotYourPasswordPage extends TestBase {
 
-	public ForgotYourPasswordPage() {
-		PageFactory.initElements(driver, this);
-	}
+    private WebDriverWait wait;
 
-	@FindBy(id = "input-email")
-	WebElement emailInputForgot;
+    public ForgotYourPasswordPage() {
+        PageFactory.initElements(driver, this);
+        wait = new WebDriverWait(driver, Duration.ofSeconds(10)); // Explicit wait
+    }
 
-	@FindBy(xpath = "//input[@value='Continue']")
-	WebElement continueButton;
+    @FindBy(id = "input-email")
+    WebElement emailInputForgot;
 
-	@FindBy(css = "div.alert")
-	WebElement alertBanner;
+    @FindBy(xpath = "//input[@value='Continue']")
+    WebElement continueButton;
 
-	public void inputEmail(String email) {
-		emailInputForgot.sendKeys(email);
-	}
+    @FindBy(css = "div.alert")
+    WebElement alertBanner;
 
-	public void clickContinueButton() {
-		continueButton.click();
-	}
+    public void inputEmail(String email) {
+        wait.until(ExpectedConditions.visibilityOf(emailInputForgot)).sendKeys(email);
+    }
 
-	public String getAlertBanner() {
-		return alertBanner.getText();
-	}
+    public void clickContinueButton() {
+        wait.until(ExpectedConditions.elementToBeClickable(continueButton)).click();
+    }
 
-	public AccountLoginPage submitForgetPwdRequest(String email) {
-		inputEmail(email);
-		clickContinueButton();
-		return new AccountLoginPage();
-	}
+    public String getAlertBanner() {
+        return wait.until(ExpectedConditions.visibilityOf(alertBanner)).getText();
+    }
 
+    public AccountLoginPage submitForgetPwdRequest(String email) {
+        inputEmail(email);
+        clickContinueButton();
+        return new AccountLoginPage();
+    }
 }

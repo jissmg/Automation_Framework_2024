@@ -83,7 +83,7 @@ public class MyAccountPage extends TestBase{
 	return editAccountSuccess.getText().trim();
 	}
 	
-	@FindBy(xpath="//a[text()='Register for an affiliate account']")
+	@FindBy(xpath="//a[text()='Edit your affiliate information']")
 	WebElement clickOnAffliateAccount;
 	
 	public YourAffliateInformationPage  clickOnAffliateAccount()

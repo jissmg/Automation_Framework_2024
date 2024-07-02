@@ -20,7 +20,7 @@ public class YourAffliateInformationPage extends TestBase{
 	public void companyName()
 	{
 		companyName.clear();
-		companyName.sendKeys("ServicePro");
+		companyName.sendKeys("Chartwell");
 	}
 	
 	@FindBy(xpath="//input[@id='input-website']")
@@ -29,7 +29,7 @@ public class YourAffliateInformationPage extends TestBase{
 	public void companyWebsite()
 	{
 		companyWebsite.clear();
-		companyWebsite.sendKeys("www.servicepro.ca");
+		companyWebsite.sendKeys("www.chartwell.ca");
 	}
 	
 	@FindBy(xpath="//input[@id='input-tax']")
@@ -38,7 +38,7 @@ public class YourAffliateInformationPage extends TestBase{
 	public void companyTaxId()
 	{
 		companyTaxId.clear();
-		companyTaxId.sendKeys("22091");
+		companyTaxId.sendKeys("2209001");
 	}
 	
 	
@@ -56,16 +56,16 @@ public class YourAffliateInformationPage extends TestBase{
 	public void companyPaypalEmailAccount()
 	{
 		companyPaypalEmailAccount.clear();
-		companyPaypalEmailAccount.sendKeys("servicepro@servicepro.ca");
+		companyPaypalEmailAccount.sendKeys("Chartwell@servicepro.ca");
 	}
 	
-	@FindBy(xpath="//input[@name='agree']")
-	WebElement companyAgree; 
-	
-	public void companyAgree()
-	{
-		companyAgree.click();
-	}
+//	@FindBy(xpath="//input[@name='agree']")
+//	WebElement companyAgree; 
+//	
+//	public void companyAgree()
+//	{
+//		companyAgree.click();
+//	}
 	
 	@FindBy(xpath="//input[@value='Continue']")
 	WebElement companyContinue; 
@@ -82,7 +82,7 @@ public class YourAffliateInformationPage extends TestBase{
 		companyTaxId();
 		companyPaymentMethod();
 		companyPaypalEmailAccount();
-		companyAgree();
+		//companyAgree();
 		companyContinue();
 	}
 	
