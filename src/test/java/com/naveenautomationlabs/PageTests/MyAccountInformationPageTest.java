@@ -24,16 +24,11 @@ public class MyAccountInformationPageTest extends TestBase {
 
     @Test
     public void loginAndValidateMyAccountInformation() {
-        // Login and verify My Account page
         myAccountPage = loginPage.loginToMyAccount("jismaria123@gmail.com", "Password@1234");
         String getMyAccountText = myAccountPage.getMyAccountText();
         Assert.assertEquals(getMyAccountText, "My Account", "My Account text does not match");
-
-        // Navigate to Edit Account page and update information
         editAccountPage = myAccountPage.clickOnEditAccount();
         editAccountPage.MyAccountInformation();
-        
-        // Verify success message after account update
         String editAccountAlertText = myAccountPage.getEditAccountSuccessAlert();
         Assert.assertEquals(editAccountAlertText, "Success: Your account has been successfully updated.",
                 "Edit Account success message does not match");

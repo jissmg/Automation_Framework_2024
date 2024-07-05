@@ -43,18 +43,21 @@ public class AccountLoginPage extends TestBase {
 	}
 
 
-    public String getTextFromAlertBanner() {
-        return waitForElementToBeVisible(alertBanner, 10).getText();
-    }
-
-    public String getTextFromAlertSuccessBanner() {
-        return waitForElementToBeVisible(alertSuccessBanner, 10).getText();
-    }
-
-    public ForgotYourPasswordPage clickForgotPassword() {
-        clickElement(forgottenPasswordLink, 10);
-        return new ForgotYourPasswordPage();
-    }
+	public String getTextFromAlertBanner()
+	{
+		return alertBanner.getText();
+	}
+	
+	public String getTextFromAlertSuccessBanner()
+	{
+		return alertSuccessBanner.getText();
+	}
+	
+	public ForgotYourPasswordPage clickForgotPassword()
+	{
+		forgottenPasswordLink.click();
+		return new ForgotYourPasswordPage();
+	}
 
     public MyAccountPage loginToMyAccount(String email, String pwd) {
         enterEmail(email);

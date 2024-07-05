@@ -5,7 +5,7 @@ public enum Browsers {
 	CHROME("Google Chrome"),
 	FIREFOX("Mozilla Firefox"), 
 	EDGE("MicrosoftEdge"), 
-	SAFARI("Mac Safari");
+	SAFARI("Mac Safari"), ;
 
 	private String browserNameWithCompanies;
 

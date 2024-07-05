@@ -24,16 +24,12 @@ public class NewsLetterSubscriptionPageTest extends TestBase {
 
     @Test
     public void loginAndNewsLetterSubscriptionValidate() {
-        // Login and verify My Account page
         myAccountPage = loginPage.loginToMyAccount("jismaria123@gmail.com", "Password@1234");
         String getMyAccountText = myAccountPage.getMyAccountText();
         Assert.assertEquals(getMyAccountText, "My Account", "My Account text does not match");
-
-        // Subscribe to newsletter
         newsletterSubscriptionPage = myAccountPage.newsLetter();
         newsletterSubscriptionPage.newsLetterSubscription();
         
-        // Verify success message after newsletter subscription
         String newsLetterAlertBannerText = newsletterSubscriptionPage.getNewsLetterAlertBanner();
         Assert.assertEquals(newsLetterAlertBannerText, "Success: Your newsletter subscription has been successfully updated!",
                 "Newsletter subscription success message does not match");

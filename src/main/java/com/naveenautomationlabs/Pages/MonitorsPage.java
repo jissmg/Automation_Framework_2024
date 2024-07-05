@@ -1,65 +1,39 @@
 package com.naveenautomationlabs.Pages;
 
 import java.time.Duration;
+import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import com.naveenautomationlabs.Testbase.TestBase;
 
-public class MonitorsPage extends TestBase{
-	WebDriverWait wait;
-	
-	public MonitorsPage()
-	{
-		PageFactory.initElements(driver,this);
-	}
-	
-	@FindBy(css="#content  div:nth-child(5) div:nth-child(1)  div div:nth-child(2) div.button-group button:nth-child(2)")
-	WebElement appleCinemaToWishList;
-	
-	public void appleCinemaToWishList()
-	{
-		appleCinemaToWishList.click();
-	}
-	
-	@FindBy(css="#content  div:nth-child(5) div:nth-child(2)  div div:nth-child(2) div.button-group button:nth-child(2)")
-	WebElement samsungSyncMasterToWishList;
-	
-	public void samsungSyncMasterToWishList()
-	{
-		samsungSyncMasterToWishList.click();
-	}
-	
-	
-	@FindBy(xpath="//span[@class='caret']")
-	WebElement clickOnMyAccountFromMonitorPage;
+public class MonitorsPage extends TestBase {
+    WebDriverWait wait;
 
-	public void  clickOnMyAccountFromMonitorPage()
-	{
-		 clickOnMyAccountFromMonitorPage.click();
-	}
-	
-	
-	
-	@FindBy(css="#top-links ul  li.dropdown.open ul.dropdown-menu li:first-of-type a")
-	WebElement selectOnMyAccountFromMonitorPage;
+    public MonitorsPage() {
+        PageFactory.initElements(driver, this);
+        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+    }
 
-	public void  selectOnMyAccountFromMonitorPage()
-	{
-		 selectOnMyAccountFromMonitorPage.click();
-	}
+    @FindBy(css = "button[data-original-title*='Wish List']")
+	List<WebElement> addToWishListBtn;
 	
-	public void monitorsAddedToWishList()
-	{
-		appleCinemaToWishList();
-		samsungSyncMasterToWishList();
-		wait = new WebDriverWait(driver, Duration.ofSeconds(20));
-		clickOnMyAccountFromMonitorPage();
-		wait = new WebDriverWait(driver, Duration.ofSeconds(20));
-		selectOnMyAccountFromMonitorPage();
+	@FindBy(xpath = "//span[contains(text(),'Wish')]")
+	WebElement wishListBtn;
+	
+	public void addAllMonitorsToWishList() {
+        for (WebElement btn : addToWishListBtn) {
+            wait.until(ExpectedConditions.elementToBeClickable(btn)).click();
+        }
+    }
+	
+	public WishListPage clickWishList() {
+		wait.until(ExpectedConditions.elementToBeClickable(wishListBtn)).click();
+		return new WishListPage();
 	}
 
 }

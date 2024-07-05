@@ -1,6 +1,7 @@
 package com.naveenautomationlabs.Testbase;
 
 import java.time.Duration;
+
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
@@ -12,7 +13,6 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.events.EventFiringDecorator;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterMethod;
@@ -26,10 +26,10 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class TestBase {
 
-    public static WebDriver driver;
-    private static Browsers DEFAULT_BROWSER = Browsers.CHROME;
-    private static String URL = "https://naveenautomationlabs.com/opencart/index.php?route=account/login";
-    public static Logger logger;
+    protected static WebDriver driver;
+    private static final Browsers DEFAULT_BROWSER = Browsers.CHROME;
+    private static final String URL = "https://naveenautomationlabs.com/opencart/index.php?route=account/login";
+    protected static Logger logger;
     private WebdriverEvents events;
     protected WebDriverWait wait;
 
@@ -47,38 +47,51 @@ public class TestBase {
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
         driver.get(URL);
-
-        // Initialize WebDriverWait with a default timeout of 20 seconds
+     // Initialize WebDriverWait with a default timeout of 20 seconds
         wait = new WebDriverWait(driver, Duration.ofSeconds(20));
     }
 
     private void initialiseWebdriver() {
-        switch (DEFAULT_BROWSER) {
-            case CHROME:
-                WebDriverManager.chromedriver().setup();
-                driver = new ChromeDriver();
-                break;
-            case FIREFOX:
-                WebDriverManager.firefoxdriver().setup();
-                driver = new FirefoxDriver();
-                break;
-            case EDGE:
-                WebDriverManager.edgedriver().setup();
-                driver = new EdgeDriver();
-                break;
-            default:
-                throw new InvalidArgumentException("Enter correct browser name");
-        }
+        if (driver == null) {
+            switch (DEFAULT_BROWSER) {
+                case CHROME:
+                    WebDriverManager.chromedriver().setup();
+                    driver = new ChromeDriver();
+                    break;
+                case FIREFOX:
+                    WebDriverManager.firefoxdriver().setup();
+                    driver = new FirefoxDriver();
+                    break;
+                case EDGE:
+                    WebDriverManager.edgedriver().setup();
+                    driver = new EdgeDriver();
+                    break;
+                default:
+                    throw new InvalidArgumentException("Enter correct browser name");
+            }
 
-        // Decorate driver with event listener
-        events = new WebdriverEvents();
-        EventFiringDecorator<WebDriver> eventDriver = new EventFiringDecorator<>(events);
-        driver = eventDriver.decorate(driver);
+            // Decorate driver with event listener
+            events = new WebdriverEvents();
+            EventFiringDecorator<WebDriver> eventDriver = new EventFiringDecorator<>(events);
+            driver = eventDriver.decorate(driver);
+        }
     }
-    public void tearDown()
-	{
-		driver.quit();
-	}
+
+    @AfterMethod
+    public void tearDown() {
+        if (driver != null) {
+            try {
+                logger.info("Attempting to quit the driver.");
+                driver.quit();
+                logger.info("Driver quit successfully.");
+            } catch (Exception e) {
+                logger.error("Error occurred while quitting the driver: ", e);
+            } finally {
+                driver = null;
+            }
+        }
+    }
+
 
     public void selectDropdownByValueOrText(WebElement element, String value, String text) {
         Select select = new Select(element);
@@ -89,23 +102,5 @@ public class TestBase {
         }
     }
 
-    protected WebElement waitForElementToBeVisible(WebElement element, int timeoutInSeconds) {
-        WebDriverWait customWait = new WebDriverWait(driver, Duration.ofSeconds(timeoutInSeconds));
-        return customWait.until(ExpectedConditions.visibilityOf(element));
-    }
-
-    protected WebElement waitForElementToBeClickable(WebElement element, int timeoutInSeconds) {
-        WebDriverWait customWait = new WebDriverWait(driver, Duration.ofSeconds(timeoutInSeconds));
-        return customWait.until(ExpectedConditions.elementToBeClickable(element));
-    }
-
-    public void clickElement(WebElement element, int timeoutInSeconds) {
-        WebElement clickableElement = waitForElementToBeClickable(element, timeoutInSeconds);
-        clickableElement.click();
-    }
-
-    public void sendKeysToElement(WebElement element, String keys, int timeoutInSeconds) {
-        WebElement visibleElement = waitForElementToBeVisible(element, timeoutInSeconds);
-        visibleElement.sendKeys(keys);
-    }
+  
 }

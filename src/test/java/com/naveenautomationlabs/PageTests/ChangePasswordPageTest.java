@@ -5,7 +5,6 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import com.naveenautomationlabs.Pages.AccountLoginPage;
-import com.naveenautomationlabs.Pages.AddressBookPage;
 import com.naveenautomationlabs.Pages.ChangePasswordPage;
 import com.naveenautomationlabs.Pages.MyAccountPage;
 import com.naveenautomationlabs.Testbase.TestBase;

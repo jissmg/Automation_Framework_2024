@@ -6,7 +6,6 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import com.naveenautomationlabs.Pages.AccountLoginPage;
 import com.naveenautomationlabs.Pages.MonitorsPage;
-import com.naveenautomationlabs.Pages.MyAccountInformationPage;
 import com.naveenautomationlabs.Pages.MyAccountPage;
 import com.naveenautomationlabs.Pages.WishListPage;
 import com.naveenautomationlabs.Testbase.TestBase;
@@ -36,13 +35,11 @@ public class WishListPageTest extends TestBase {
 		String getMyAccountText = myAccountPage.getMyAccountText();
 		Assert.assertEquals("My Account", getMyAccountText,"Not matching with My Account text");
 		
-		 MonitorsPage monitorsPage =myAccountPage.componentsAndMonitor();
-		 monitorsPage.monitorsAddedToWishList();
+		 MonitorsPage monitorsPage =myAccountPage.selectMonitors();
+		 monitorsPage.addAllMonitorsToWishList();
+		 WishListPage wishListPage= myAccountPage.clickWishList();
 		 
-		 WishListPage wishListPage= myAccountPage.clickOnWishList();
-		 wishListPage.wishListRemove();
-	    
-	  
+		 wishListPage.removeAllProductsFromWishList();
 		String EmptyWishListAlertText= wishListPage.getEmptyWishListAlert();
 		Assert.assertEquals("Your wish list is empty.",EmptyWishListAlertText ,"Not matching wish list text");
 	}

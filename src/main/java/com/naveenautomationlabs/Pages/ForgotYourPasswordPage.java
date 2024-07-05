@@ -14,7 +14,7 @@ public class ForgotYourPasswordPage extends TestBase {
 
     public ForgotYourPasswordPage() {
         PageFactory.initElements(driver, this);
-        wait = new WebDriverWait(driver, Duration.ofSeconds(10)); // Explicit wait
+        wait = new WebDriverWait(driver, Duration.ofSeconds(10)); 
     }
 
     @FindBy(id = "input-email")
@@ -27,7 +27,7 @@ public class ForgotYourPasswordPage extends TestBase {
     WebElement alertBanner;
 
     public void inputEmail(String email) {
-        wait.until(ExpectedConditions.visibilityOf(emailInputForgot)).sendKeys(email);
+    	emailInputForgot.sendKeys(email);
     }
 
     public void clickContinueButton() {

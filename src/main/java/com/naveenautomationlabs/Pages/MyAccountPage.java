@@ -8,10 +8,10 @@ import com.naveenautomationlabs.Testbase.TestBase;
 
 public class MyAccountPage extends TestBase{
 	
-	//initialize the page elements using constructor
 	public MyAccountPage()
 	{
 		PageFactory.initElements(driver,this);
+		
 	}
 	
 	@FindBy(css="#content h2:first-of-type")
@@ -103,27 +103,24 @@ public class MyAccountPage extends TestBase{
 	
 	
 	@FindBy(xpath="//a[text()='Components']")
-	WebElement clickOnComponents;
+	WebElement components;
+
 	
-	public void  clickOnComponents()
-	{
-		 clickOnComponents.click();
-	}
-	
-	@FindBy(xpath="//a[text()='Monitors (2)']")
-	WebElement clickOnMonitors;
-	
-	public void clickOnMonitors()
-	{
-		clickOnMonitors.click();
-	}
-	
-	public MonitorsPage componentsAndMonitor()
-	{
-		clickOnComponents();
-		clickOnMonitors();
+	@FindBy(css = "ul.nav>li:nth-of-type(3) li:nth-of-type(2) a")
+	WebElement monitors;
+	public MonitorsPage selectMonitors() {
+		components.click();
+		monitors.click();
+		
 		return new MonitorsPage();
 	}
+	@FindBy(xpath = "//a[contains(text(),'Wish')]")
+	WebElement wishList;
+	public WishListPage clickWishList() {
+		wishList.click();
+		return new WishListPage();
+	}
+
 	
 	@FindBy(css="div.list-group a:nth-of-type(5)")
 	WebElement clickOnWishList;

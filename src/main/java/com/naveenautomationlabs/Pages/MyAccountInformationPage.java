@@ -13,7 +13,7 @@ public class MyAccountInformationPage extends TestBase {
 
     public MyAccountInformationPage() {
         PageFactory.initElements(driver, this);
-        wait = new WebDriverWait(driver, Duration.ofSeconds(10)); // Initialize WebDriverWait with a 10-second timeout
+        wait = new WebDriverWait(driver, Duration.ofSeconds(10)); 
     }
 
     @FindBy(xpath = "//input[@id='input-firstname']")

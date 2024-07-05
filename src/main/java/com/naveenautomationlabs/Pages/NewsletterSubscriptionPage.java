@@ -27,7 +27,7 @@ public class NewsletterSubscriptionPage extends TestBase {
 
     public NewsletterSubscriptionPage() {
         PageFactory.initElements(driver, this);
-        wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
     public void clickOnYesNewsLetter() {
