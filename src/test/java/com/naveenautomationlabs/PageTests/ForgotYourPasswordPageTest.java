@@ -8,32 +8,27 @@ import com.naveenautomationlabs.Pages.AccountLoginPage;
 import com.naveenautomationlabs.Pages.ForgotYourPasswordPage;
 import com.naveenautomationlabs.Testbase.TestBase;
 
+public class ForgotYourPasswordPageTest extends TestBase {
+    AccountLoginPage loginPage;
+    ForgotYourPasswordPage pwdPage;
 
-public class ForgotYourPasswordPageTest extends TestBase{
-	
-	AccountLoginPage loginPage;
-	
-	@BeforeMethod
-	public void setup()
-	{
-		initialise();
-		loginPage= new AccountLoginPage();
-	}
+    @BeforeMethod
+    public void setup() {
+        intialise();
+        loginPage = new AccountLoginPage();
+        pwdPage = new ForgotYourPasswordPage(); // Initialize the ForgotYourPasswordPage object
+    }
 
-	
-	@Test
-	public void validateLoginWithValidCredentialsForForgotPassword()
-	{
-		  
-		ForgotYourPasswordPage pwdPage = loginPage.clickForgotPassword();
-		pwdPage.submitForgetPwdRequest("jis@gmail.com");
-		String alertBannerText = pwdPage.getAlertBanner().trim();
-		Assert.assertEquals("Warning: The E-Mail Address was not found in our records, please try again!",alertBannerText,"Not matching alert banner message");
-	}
-	
-	@AfterMethod
-	public void closeBrowser()
-	{
-		tearDown();
-	}
+    @Test
+    public void validateForgotPassword() {
+    	pwdPage = loginPage.clickForgotPassword();
+        pwdPage.submitForgetPwdRequest("jismaria12@gmail.com");
+        String alertBannerText = pwdPage.getAlertBanner().trim();
+        Assert.assertEquals(alertBannerText, "Warning: The E-Mail Address was not found in our records, please try again!", "Not matching alert banner message");
+    }
+
+    @AfterMethod
+    public void closeBrowser() {
+        tearDown();
+    }
 }

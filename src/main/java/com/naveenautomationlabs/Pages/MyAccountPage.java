@@ -114,7 +114,7 @@ public class MyAccountPage extends TestBase{
 		
 		return new MonitorsPage();
 	}
-	@FindBy(xpath = "//a[contains(text(),'Wish')]")
+	@FindBy(id = "wishlist-total")
 	WebElement wishList;
 	public WishListPage clickWishList() {
 		wishList.click();
@@ -122,14 +122,14 @@ public class MyAccountPage extends TestBase{
 	}
 
 	
-	@FindBy(css="div.list-group a:nth-of-type(5)")
-	WebElement clickOnWishList;
-	
-	public WishListPage clickOnWishList()
-	{
-		clickOnWishList.click();
-		return new WishListPage();
-	}
+//	@FindBy(css="div.list-group a:nth-of-type(5)")
+//	WebElement clickOnWishList;
+//	
+//	public WishListPage clickOnWishList()
+//	{
+//		clickOnWishList.click();
+//		return new WishListPage();
+//	}
 
 
 }

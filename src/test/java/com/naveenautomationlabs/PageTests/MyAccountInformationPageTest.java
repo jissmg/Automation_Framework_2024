@@ -18,13 +18,13 @@ public class MyAccountInformationPageTest extends TestBase {
 
     @BeforeMethod
     public void setup() {
-        initialise();
+        intialise();
         loginPage = new AccountLoginPage();
     }
 
     @Test
     public void loginAndValidateMyAccountInformation() {
-        myAccountPage = loginPage.loginToMyAccount("jismaria123@gmail.com", "Password@1234");
+    	 MyAccountPage myAccountPage = loginPage.loginToMyAccount("jismaria123@gmail.com", "Password@1234");
         String getMyAccountText = myAccountPage.getMyAccountText();
         Assert.assertEquals(getMyAccountText, "My Account", "My Account text does not match");
         editAccountPage = myAccountPage.clickOnEditAccount();

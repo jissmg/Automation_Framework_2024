@@ -6,8 +6,7 @@ import org.testng.ITestResult;
 import com.naveenautomationlabs.Testbase.TestBase;
 
 
-
-public class RetryAnalyzer extends TestBase implements IRetryAnalyzer {
+public class RetryAnalyser extends TestBase implements IRetryAnalyzer {
 
 	int cnt = 0;
 	int maxCnt = 1;

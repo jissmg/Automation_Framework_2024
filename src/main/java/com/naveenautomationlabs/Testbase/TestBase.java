@@ -13,11 +13,10 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.events.EventFiringDecorator;
+import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
 
 import com.naveenautomationlabs.Browsers.Browsers;
 import com.naveenautomationlabs.listeners.WebdriverEvents;
@@ -26,71 +25,66 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class TestBase {
 
-    protected static WebDriver driver;
-    private static final Browsers DEFAULT_BROWSER = Browsers.CHROME;
-    private static final String URL = "https://naveenautomationlabs.com/opencart/index.php?route=account/login";
-    protected static Logger logger;
-    private WebdriverEvents events;
-    protected WebDriverWait wait;
+	public static WebDriver driver;
+	private final Browsers BROWSER = Browsers.CHROME;
+	private final String URL = "https://naveenautomationlabs.com/opencart/index.php?route=account/login";
+	public static Logger logger;
+	public WebdriverEvents events;
+	@SuppressWarnings("deprecation")
+	public EventFiringWebDriver eDriver;
+	 protected WebDriverWait wait;
+	// This method intialise the Webdriver instance
+	public void intialise() {
 
-    @BeforeClass
-    public void setUpLogger() {
-        logger = Logger.getLogger(TestBase.class);
-        PropertyConfigurator.configure("log4j.properties");
-        BasicConfigurator.configure();
-        logger.setLevel(Level.ALL);
-    }
+		intialiseWebdriver();
+		// Maximise Window
+		driver.manage().window().maximize();
+		// Manage Timeout
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
+		// Load Webpage
+		driver.get(URL);
+		   wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+	}
 
-    @BeforeMethod
-    public void initialise() {
-        initialiseWebdriver();
-        driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
-        driver.get(URL);
-     // Initialize WebDriverWait with a default timeout of 20 seconds
-        wait = new WebDriverWait(driver, Duration.ofSeconds(20));
-    }
+	@BeforeClass
+	public void setUpLogger() {
+		logger = Logger.getLogger(TestBase.class);
+		PropertyConfigurator.configure("log4j.properties");
+		BasicConfigurator.configure();
+		logger.setLevel(Level.ALL);
+	}
 
-    private void initialiseWebdriver() {
-        if (driver == null) {
-            switch (DEFAULT_BROWSER) {
-                case CHROME:
-                    WebDriverManager.chromedriver().setup();
-                    driver = new ChromeDriver();
-                    break;
-                case FIREFOX:
-                    WebDriverManager.firefoxdriver().setup();
-                    driver = new FirefoxDriver();
-                    break;
-                case EDGE:
-                    WebDriverManager.edgedriver().setup();
-                    driver = new EdgeDriver();
-                    break;
-                default:
-                    throw new InvalidArgumentException("Enter correct browser name");
-            }
+	private void intialiseWebdriver() {
+		switch (BROWSER) {
+		case CHROME:
+			WebDriverManager.chromedriver().setup();
+			driver = new ChromeDriver();
+			break;
+		case FIREFOX:
+			WebDriverManager.firefoxdriver().setup();
+			driver = new FirefoxDriver();
+			break;
+		case EDGE:
+			WebDriverManager.edgedriver().setup();
+			driver = new EdgeDriver();
+			break;
 
-            // Decorate driver with event listener
-            events = new WebdriverEvents();
-            EventFiringDecorator<WebDriver> eventDriver = new EventFiringDecorator<>(events);
-            driver = eventDriver.decorate(driver);
-        }
-    }
+		default:
+			throw new InvalidArgumentException("Pass Correct Browser name");
+		}
 
-    @AfterMethod
-    public void tearDown() {
-        if (driver != null) {
-            try {
-                logger.info("Attempting to quit the driver.");
-                driver.quit();
-                logger.info("Driver quit successfully.");
-            } catch (Exception e) {
-                logger.error("Error occurred while quitting the driver: ", e);
-            } finally {
-                driver = null;
-            }
-        }
-    }
+		eDriver = new EventFiringWebDriver(driver);
+		events = new WebdriverEvents();
+
+		eDriver.register(events);
+		driver = eDriver;
+		
+	}
+
+	// Method to close the browser
+	public void tearDown() {
+		driver.quit();
+	}
 
 
     public void selectDropdownByValueOrText(WebElement element, String value, String text) {

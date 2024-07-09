@@ -20,7 +20,7 @@ public class YourAffliateInformationPageTest extends TestBase {
 	@BeforeMethod
 	public void setup()
 	{
-		initialise();
+		intialise();
 		loginPage= new AccountLoginPage();
 	}
    

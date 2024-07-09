@@ -17,7 +17,7 @@ public class ChangePasswordPageTest extends TestBase {
 
 	@BeforeMethod
 	public void setup() {
-		initialise();
+		intialise();
 		loginPage = new AccountLoginPage();
 	}
 

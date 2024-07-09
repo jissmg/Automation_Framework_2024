@@ -24,7 +24,7 @@ public class WishListPageTest extends TestBase {
 	@BeforeMethod
 	public void setup()
 	{
-		initialise();
+		intialise();
 		loginPage= new AccountLoginPage();
 	}
    
@@ -37,8 +37,8 @@ public class WishListPageTest extends TestBase {
 		
 		 MonitorsPage monitorsPage =myAccountPage.selectMonitors();
 		 monitorsPage.addAllMonitorsToWishList();
-		 WishListPage wishListPage= myAccountPage.clickWishList();
-		 
+		 wishListPage = monitorsPage.clickWishList();
+		 wishListPage = myAccountPage.clickWishList();
 		 wishListPage.removeAllProductsFromWishList();
 		String EmptyWishListAlertText= wishListPage.getEmptyWishListAlert();
 		Assert.assertEquals("Your wish list is empty.",EmptyWishListAlertText ,"Not matching wish list text");

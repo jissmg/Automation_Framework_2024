@@ -29,26 +29,25 @@ public class AccountLoginPageTest extends TestBase {
 
 	@BeforeMethod
 	public void setup() {
-		initialise();
+		intialise();
 		loginPage = new AccountLoginPage();
 	}
 
 	@Test(dataProvider="LoginData")
-	public void validateLoginWithValidCredentials(String email, String pwd) {
-		MyAccountPage myAccountPage = loginPage.loginToMyAccount(email,pwd);
+	public void validateLoginWithValidCredentials(String email, String password) {
+		MyAccountPage myAccountPage = loginPage.loginToMyAccount(email,password);
 		String getMyAccountText = myAccountPage.getMyAccountText();
 		Assert.assertEquals("My Account", getMyAccountText);	
 		
 
 	}
-
+	
 	@Test
 	public void validateLoginWithInvalidCredentials() {
-		loginPage.loginToMyAccount("jismaria123@gmail.com", "Password");
+		loginPage.loginToMyAccount("jismaria123@gmail.com", "Password@124");
 		String alertBannerText = loginPage.getTextFromAlertBanner().trim();
 		Assert.assertEquals("Warning: No match for E-Mail Address and/or Password.", alertBannerText);
 	}
-
 	@Test
 	public void validateForgotYourPasswordFunctionality() {
 		pwdPage = loginPage.clickForgotPassword();
@@ -59,22 +58,29 @@ public class AccountLoginPageTest extends TestBase {
 
 	}
 
+
+
 	@AfterMethod
 	public void closeBrowser() {
 		tearDown();
 	}
 	@DataProvider(name = "LoginData")
 	private String[][] loginInfoProvider() throws IOException {
-		String filePath = "C:\\Users\\sudhe\\OneDrive\\Desktop\\loginData.xlsx";
-		int rowCount = ExcelUtils.getRowCount(filePath, "Sheet2");
-		int colCount = ExcelUtils.getColumnCount(filePath, "Sheet2", rowCount);
-		String[][] loginData = new String[rowCount][colCount];
-		for (int i = 1; i <= rowCount; i++) {
-			for (int j = 0; j < colCount; j++) {
-				loginData[i - 1][j] = ExcelUtils.getCellValue(filePath, "Sheet2", i, j);
-			}
-		}
-		return loginData;
+	    String path = ".\\files\\loginData.xlsx";
+	    ExcelUtils excelUtils = new ExcelUtils(path);
+	    int rowCount = excelUtils.getRowCount("Sheet1");
+	    int colCount = excelUtils.getColumnCount("Sheet1", 0); // Assuming the first row contains all columns
+
+	    // Initialize array with rowCount + 1 because getRowCount gives the last row number (0-indexed)
+	    String[][] loginData = new String[rowCount][colCount];
+
+	    for (int i = 1; i <= rowCount; i++) {
+	        for (int j = 0; j < colCount; j++) {
+	            loginData[i-1][j] = excelUtils.getCellValue("Sheet1", i, j);
+	        }
+	    }
+	    return loginData;
 	}
+
 
 }

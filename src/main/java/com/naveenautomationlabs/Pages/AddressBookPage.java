@@ -23,7 +23,7 @@ public class AddressBookPage extends TestBase {
     WebElement clickOnNewAddress;
 
     private void clickOnNewAddress() {
-    	clickOnNewAddress.click();
+        wait.until(ExpectedConditions.elementToBeClickable(clickOnNewAddress)).click();
     }
 
     @FindBy(xpath = "//input[@name='firstname']")
