@@ -20,6 +20,7 @@ public class MonitorsPage extends TestBase {
     }
 
     @FindBy(css = "button[data-original-title*='Wish List']")
+    
 	List<WebElement> addToWishListBtn;
 	
 	@FindBy(xpath = "//span[contains(text(),'Wish')]")
@@ -33,6 +34,7 @@ public class MonitorsPage extends TestBase {
 	
 	public WishListPage clickWishList() {
 		wait.until(ExpectedConditions.elementToBeClickable(wishListBtn)).click();
+		
 		return new WishListPage();
 	}
 

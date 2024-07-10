@@ -33,11 +33,13 @@ public class AccountLoginPageTest extends TestBase {
 		loginPage = new AccountLoginPage();
 	}
 
+	
+
 	@Test(dataProvider="LoginData")
 	public void validateLoginWithValidCredentials(String email, String password) {
 		MyAccountPage myAccountPage = loginPage.loginToMyAccount(email,password);
 		String getMyAccountText = myAccountPage.getMyAccountText();
-		Assert.assertEquals("My Account", getMyAccountText);	
+		Assert.assertEquals("My Account", getMyAccountText,"Not matching with My Account text");
 		
 
 	}
